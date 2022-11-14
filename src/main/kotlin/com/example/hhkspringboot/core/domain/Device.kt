@@ -5,34 +5,45 @@ import com.example.hhkspringboot.core.enums.Manufacturer
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.ReadOnlyProperty
-import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.mongodb.core.mapping.DocumentReference
-import org.springframework.data.mongodb.core.mapping.MongoId
+import org.springframework.data.mongodb.core.index.Indexed
+import org.springframework.data.mongodb.core.mapping.*
 import java.time.LocalDateTime
+import javax.validation.constraints.NotNull
 
 @Document(collection = "devices")
 data class Device(
-    @MongoId
-    val id: String,
-    val modelNumber: String,
-    val deviceType: DeviceType,
-    val name: String,
-    val manufacturer: Manufacturer,
-    val specifications: Specifications,
+    @MongoId(targetType = FieldType.OBJECT_ID)
+    val id: String? = null,
+
+    @Indexed(unique = true)
+    val modelNumber: String?,
+
+    val deviceType: DeviceType?,
+
+    @Indexed(unique = true)
+    val name: String?,
+
+    val manufacturer: Manufacturer?,
+
+    val specifications: Specifications?,
+
     val customizableSpecifications: CustomizableSpecifications?,
-    val isDefaultOption: Boolean = false,
-    val defaultOptionID: String?,
-    @CreatedDate
-    val createdAt: LocalDateTime,
-    @LastModifiedDate
-    val updatedAt: LocalDateTime,
-) {
+
     @ReadOnlyProperty
     @DocumentReference(lookup = "{'deviceID':?#{#self._id} }")
-    lateinit var stocks: List<Stock>
+    val stocks: List<Stock>,
 
-    @ReadOnlyProperty
-    @DocumentReference(lookup = "{'defaultOptionID':?#{#self._id} }")
-    lateinit var otherOptions: List<Device>
+    val isDefaultOption: Boolean = false,
 
+    @Field(targetType = FieldType.OBJECT_ID)
+    val defaultOptionID: String?,
+
+    @CreatedDate
+    val createdAt: LocalDateTime? = null,
+    @LastModifiedDate
+    val updatedAt: LocalDateTime? = null
+) {
+//    @ReadOnlyProperty
+//    @DocumentReference(lookup = "{'deviceID':?#{#self._id} }")
+//    lateinit var stocks: List<Stock>
 }

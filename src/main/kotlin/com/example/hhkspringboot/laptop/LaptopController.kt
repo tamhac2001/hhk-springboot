@@ -1,26 +1,17 @@
 package com.example.hhkspringboot.laptop
 
-import com.example.hhkspringboot.core.enums.Manufacturer
-import com.example.hhkspringboot.core.enums.OrderBy
 import com.example.hhkspringboot.core.domain.Device
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/laptops")
+@RequestMapping("/api")
 class LaptopController(private val service: LaptopService) {
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping()
+    @GetMapping("/laptops")
     fun getAllLaptops(
-        @RequestParam(required = false) manufacturers: List<Manufacturer>?,
-        @RequestParam(name = "order-by", defaultValue = "price-desc") orderBy: OrderBy,
-        @RequestParam(defaultValue = "0") page: Int,
     ): List<Device> {
-        return service.getAllLaptops(manufacturers, orderBy, page)
+        return service.getAllLaptop()
     }
 }

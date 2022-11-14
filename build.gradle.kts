@@ -20,20 +20,24 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.7.5")
+//    spring-boot
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20")
-    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.5")
-    testImplementation("com.ninja-squad:springmockk:3.1.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools:2.7.5")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.7.5")
+    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.5")
+    implementation("org.springframework.boot:spring-boot-starter-logging:2.7.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+//    kotlin
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20")
+    testImplementation("com.ninja-squad:springmockk:3.1.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
 //    spring doc
     implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
     implementation("org.springdoc:springdoc-openapi-data-rest:1.6.12")
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.12")
+
+
 }
 
 tasks.withType<KotlinCompile> {
